@@ -34,4 +34,15 @@ clean-targets:         # directories to be removed by `dbt clean`
 # instead be materialized as tables. Any models you add to the root of the models folder will 
 # continue to be built as views. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
+models:
+  admin_maturity:
+    +materialized: table # Default all SQL models to be materialised as tables
+    +persist_docs: # Write all of our column descriptions into BigQuery!
+      relation: true
+      columns: true
+    +hours_to_expiration: 160
+
+tests:
+  admin_maturity:
+    +severity: warn
 
